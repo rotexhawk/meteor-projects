@@ -1,0 +1,38 @@
+/* CSS declarations go here */
+
+.player-card{
+    padding: 2%;
+    margin: 0 auto;
+    display: block;
+    overflow: hidden;
+}
+
+.player-details{
+    float: left;
+}
+
+.player-buttons{
+    float: right;
+}
+
+.button{
+     background: white;
+}
+
+.button:hover{
+    background: tomato;
+    color: white;
+}
+
+
+.button.round{
+    border: 1px solid gainsboro;
+    font-size: 1.5em;
+    border-radius: 50%;
+    padding: 0px 7px 4px 7px;
+    line-height: 1em;
+    display: inline-block;
+    margin: 0 5px;
+    outline: none;
+    -webkit-highlight: none;
+}
