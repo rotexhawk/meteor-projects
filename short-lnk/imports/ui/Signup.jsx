@@ -17,21 +17,21 @@ export default class Signup extends React.Component{
             </div>
             <input type="submit" value="submit" className="btn btn-primary"></input>
         </form>
-        <a href="/">Already have an account?</a>
+        <a href="/signin">Already have an account?</a>
         </div>
         );
-        
+
     }
 
     signup(e){
-        e.preventDefault(); 
-        console.log('gets to this point'); 
+        e.preventDefault();
+        console.log('gets to this point');
 
-        let user = this.refs.email.value.trim(); 
-        let password = this.refs.password.value.trim(); 
+        let user = this.refs.email.value.trim();
+        let password = this.refs.password.value.trim();
 
         Accounts.createUser({ email: user, password: password}, (err) =>{
-            console.log('error', err); 
+            console.log('error', err);
         })
     }
 
