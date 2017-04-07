@@ -8,10 +8,9 @@ export default class Signin extends React.Component{
     }
     render(){
         return(
-        <div>
-            { this.state.err !== '' ?
-                (<div className="card-panel red lighten-2">{this.state.err}</div>) : ('')
-            }
+         <div className="row">
+            <div className="col s12 m6 offset-m3">
+            { this.state.err ? <div className="card-panel red lighten-2">{this.state.err}</div> : undefined }
             <form onSubmit={this.signin.bind(this)}>
                 <h2>Signin Form</h2>
                 <div className="form-group">
@@ -24,16 +23,18 @@ export default class Signin extends React.Component{
                 </div>
                 <input type="submit" value="submit" className="btn btn-primary"></input>
             </form>
+            <br/>
+            <a href="/signup">Don't have an account?</a>
+        </div>
         </div>
         );
     }
 
     signin(e){
         e.preventDefault();
-        let user = this.refs.email.value.trim();
+        let email = this.refs.email.value.trim();
         let password = this.refs.password.value.trim();
-        Meteor.loginWithPassword(user, password, (err) =>{
-            console.log('Callback', err);
+        Meteor.loginWithPassword({email}, password, (err) =>{
             this.setState({err: err.reason});
         });
     }

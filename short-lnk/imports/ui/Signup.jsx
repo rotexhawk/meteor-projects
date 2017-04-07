@@ -2,10 +2,16 @@ import React from 'react';
 import { Accounts } from 'meteor/accounts-base';
 
 export default class Signup extends React.Component{
+    constructor(props){
+        super(props);
+        this.state = { err: '' };
+    }
+
     render(){
         return(
         <div className="row">
             <div className="col s12 m6 offset-m3">
+            { this.state.err ? <div className="card-panel red lighten-2">{this.state.err}</div> : undefined }
             <form onSubmit={this.signup.bind(this)}>
                 <h2>Signup Form</h2>
                 <div className="form-group">
@@ -33,6 +39,7 @@ export default class Signup extends React.Component{
         let password = this.refs.password.value.trim();
 
         Accounts.createUser({ email: user, password: password}, (err) =>{
+            this.setState({err: err.reason});
             console.log('error', err);
         })
     }
