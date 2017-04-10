@@ -1,7 +1,6 @@
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
 import Links from '/imports/ui/Links';
-import { ShortLinks } from '/imports/api/shortlinks';
 
 export default class Homepage extends React.Component{
     constructor(props){
@@ -40,34 +39,15 @@ export default class Homepage extends React.Component{
     createLink(e){
         e.preventDefault();
         let link = this.refs.url.value.trim();
-        if (link.indexOf('http://') === -1){
-            link = 'http://' + link;
-        }
-        const shortlink =   'http://' + Math.random().toString(36).replace(/[^a-z]+/g, '') + '.com';
-        ShortLinks.insert({
-            link: link,
-            shortlink: shortlink,
-            active: 1,
-            owner: Meteor.userId()
+        Meteor.call('links.insert', link, (err,result) =>{
+            console.log(err, result);
         });
-        console.log('this is working', link);
     }
-
-    // addPlayer(e){
-    //     e.preventDefault();
-    //     const playerName = e.target.playerName.value;
-    //     const playerScore = parseInt(e.target.playerScore.value);
-    //      Players.insert({
-    //         name: playerName,
-    //         score: playerScore
-    //     });
-    // }
 
     logout(e){
         e.preventDefault();
         Meteor.logout(cb =>{
             console.log(cb);
-            console.log('user logged out');
         })
     }
 

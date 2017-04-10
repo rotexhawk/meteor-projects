@@ -14,13 +14,11 @@ export default class Links extends React.Component{
     componentDidMount() {
         this.linksTracker = Tracker.autorun(() => {
             Meteor.subscribe('links', ()=>{
+                Meteor.subscribe('links');
                 const links = ShortLinks.find().fetch();
                 console.log('links shouldnt be empty', links);
                 this.setState({ links });
             });
-
-
-
         });
     }
 
@@ -35,7 +33,7 @@ export default class Links extends React.Component{
                 <div key={link._id} className="col s12 m8 offset-m2 link-cards">
                     <div className="card white darken-1">
                         <div className="card-content">
-                        <span className="card-title">Short Link</span>
+                        <span className="card-title">Short Link <a href="#" onClick={this.deleteCard.bind(this)}><i data-id={link._id} className="material-icons right">close</i></a></span>
                             original Link: {link.link}
                         </div>
                         <div className="card-action">
@@ -49,6 +47,13 @@ export default class Links extends React.Component{
 
     render(){
         return (<div>{this.renderLinks()}</div>)
+    }
+
+    deleteCard(e){
+        e.preventDefault();
+        let linkId = e.target.dataset.id.trim();
+        Meteor.call('links.delete', linkId);
+
     }
 
 }

@@ -13,12 +13,12 @@ import Signin from '../imports/ui/Signin';
 import Homepage from '../imports/ui/Homepage';
 import { ShortLinks } from '/imports/api/shortlinks';
 
-export const renderRoutes = (links) => (
+export const renderRoutes = () => (
 
   	<Router>
   		<div className="container">
             <Route exact path='/' render={() =>(
-                !Meteor.userId() ? <Redirect to="/signin"/> : <Homepage links={links}/>
+                !Meteor.userId() ? <Redirect to="/signin"/> : <Homepage/>
             )}/>
 	        <Route path="/signup" render={() =>(
                 Meteor.userId() ? <Redirect to="/"/> : <Signup />
@@ -32,8 +32,7 @@ export const renderRoutes = (links) => (
 
 Meteor.startup(() =>{
     Tracker.autorun(() => {
-        const links = ShortLinks.find().fetch();
-        ReactDOM.render(renderRoutes(links), document.getElementById('app'));
+        ReactDOM.render(renderRoutes(), document.getElementById('app'));
     });
 });
 
