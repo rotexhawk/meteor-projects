@@ -13,14 +13,12 @@ export default class Links extends React.Component{
 
     componentDidMount() {
         this.linksTracker = Tracker.autorun(() => {
-            Meteor.subscribe('links', ()=>{
-                Meteor.subscribe('links');
-                const links = ShortLinks.find().fetch();
-                console.log('links shouldnt be empty', links);
-                this.setState({ links });
-            });
-        });
+            Meteor.subscribe('links')
+            const links = ShortLinks.find().fetch()
+            this.setState({ links })
+        })
     }
+
 
     componentWillUnmount() {
         console.log('componentWillUnmount LinksList');
